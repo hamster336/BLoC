@@ -2,15 +2,29 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CounterIncrement {}
+sealed class CounterEvent {}    // base event extending increment and decrement events
 
-class CounterBloc extends Bloc<CounterIncrement, int> {
+class CounterIncrement extends CounterEvent {}
+
+class CounterDecrement extends CounterEvent {}
+
+class CounterBloc extends Bloc<CounterEvent, int> {
   CounterBloc(super.initialState) {
-    on<CounterIncrement>((event, emit) {
-      emit(state + 1);
+    on<CounterIncrement>(_increment);
+    on<CounterDecrement>(_decrement);
+  }
 
-      /// we cannot access emit outside handlers in bloc unlike cubit
-      log('Initial state: $state');
-    });
+  void _increment(CounterEvent event, Emitter emit) {
+    emit(state + 1);
+
+    /// we cannot access emit outside handlers in bloc unlike cubit
+    log('Initial state: $state');
+  }
+
+  void _decrement(CounterEvent event, Emitter emit) {
+    emit(state - 1);
+
+    /// we cannot access emit outside handlers in bloc unlike cubit
+    log('Initial state: $state');
   }
 }

@@ -1,4 +1,5 @@
 import 'package:bloc_basics/counter_bloc.dart';
+import 'package:bloc_basics/counter_cubit.dart';
 // import 'package:bloc_basics/counter_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,14 +13,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // final cubit = CounterCubit(0);
-  final bloc = CounterBloc(0);
+  final cubit = CounterCubit(0);
+  // final bloc = CounterBloc(0);
 
   @override
   void dispose() {
     super.dispose();
-    // cubit.close();
-    bloc.close();
+    cubit.close();
+    // bloc.close();
   }
 
   @override
@@ -33,22 +34,46 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: .center,
           children: [
-            const Text('Updating the count using BLoC:'),
+            const Text('Updating the count using Cubit and BLoC:'),
 
-            BlocBuilder<CounterBloc, int>(
-              bloc: bloc,
+            BlocBuilder<CounterCubit, int>(     // for cubit
+              bloc: cubit,
               builder: (context, state) => Text(
                 '$state',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
             ),
+
+            // BlocBuilder<CounterBloc, int>(   // for bloc
+            //   bloc: bloc,
+            //   builder: (context, state) => Text(
+            //     '$state',
+            //     style: Theme.of(context).textTheme.headlineMedium,
+            //   ),
+            // ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => bloc.add(CounterIncrement()),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      floatingActionButton: Row(
+        children: [
+          Spacer(),
+
+          FloatingActionButton(
+            onPressed: () => cubit.increment(),
+            // onPressed: () => bloc.add(CounterIncrement()),
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          ),
+
+          const SizedBox(width: 20),
+
+          FloatingActionButton(
+            onPressed: () => cubit.decrement(),
+            // onPressed: () => bloc.add(CounterDecrement()),
+            tooltip: 'Decrement',
+            child: const Icon(Icons.remove),
+          ),
+        ],
       ),
     );
   }
