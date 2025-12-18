@@ -2,15 +2,6 @@
 
 A new Flutter project.
 
-## Getting Started
+This is a very basic project that has three screens: A HomeScreen through which we can navigate to either the BlocScreen or the CubitScreen.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Both the BlocScreen and CubitScreen has the same layout and funcionality: incrementing or decrementing a counter on the press of a button. For this, i have used both Bloc and Cubit to handle both the events of incrementing and decrementing. This project served as a hands-on introduction to a new Flutter state management technique.
